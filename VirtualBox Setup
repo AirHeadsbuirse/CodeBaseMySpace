@@ -1,0 +1,217 @@
+# Set the location of the VBoxManage tool and the directory for VM configuration files.
+$vboxman = "C:\Program Files\Oracle\VirtualBox\vboxmanage.exe"
+$vmscfgdir = "D:\Virtual\VBOX\Settings\"
+
+# "C:\Program Files\Oracle\VirtualBox\vboxmanage.exe" showvminfo Win10Pro
+# "C:\Program Files\Oracle\VirtualBox\vboxmanage.exe" getextradata Win10Pro enumerate
+# "C:\Program Files\Oracle\VirtualBox\vboxmanage.exe" startvm Win10Pro
+# Define the model settings
+$models = @(
+    @{
+        "Name" = "ASUS ZenBook 13"
+        "Settings" = @{
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemVendor" = (Get-Random -InputObject @("ASUSTeK Computer Inc."))
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemProduct" = (Get-Random -InputObject @("ZenBook 13 2020", "ZenBook 14 2021", "ZenBook Pro 15 2022"))
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemVersion" = (Get-Random -InputObject @("3.0"))
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemSerial" = ([char[]](48..57+65..90)|sort{Get-Random}|select -First (Get-Random -Minimum 9 -Maximum 16)) -join ''
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemSKU" = (Get-Random -InputObject @("ZB132020", "ZB142021", "ZB151522"))
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemFamily" = (Get-Random -InputObject @("ZenBook", "Laptop", "Ultrabook"))
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemUuid" = (New-Guid).Guid
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBIOSVendor" = "American Megatrends Inc."
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBIOSVersion" = "2204"
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBIOSReleaseDate" = "07/10/2021"
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBoardVendor" = "ASUSTeK Computer Inc."
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBoardProduct" = "ZenBook 13 2020"
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBoardVersion" = "1.0"
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBoardSerial" = ([char[]](48..57+65..90)|sort{Get-Random}|select -First $randomLength) -join ''
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBoardAssetTag" = ([char[]](48..57+65..90)|sort{Get-Random}|select -First (Get-Random -Minimum 9 -Maximum 16)) -join ''
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBoardBoardType" = "10"
+            "VBoxInternal/Devices/acpi/0/Config/AcpiOemId" = "ASUS"
+        }
+    },
+ @{
+        "Name" = "Microsoft Surface Laptop 3"
+        "Settings" = @{
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemVendor" = "Microsoft Corporation"
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemProduct" = (Get-Random -InputObject @("Surface Laptop 3 2020", "Surface Laptop 4 2021", "Surface Laptop 5 2022"))
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemVersion" = "3.0"
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemSerial" = ([char[]](48..57+65..90)|sort{Get-Random}|select -First (Get-Random -Minimum 9 -Maximum 16)) -join ''
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemSKU" = (Get-Random -InputObject @("SL32020", "SL42021", "SL52022"))
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemFamily" = (Get-Random -InputObject @("Surface", "Laptop", "Ultrabook"))
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemUuid" = (New-Guid).Guid
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBIOSVendor" = "Microsoft"
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBIOSVersion" = "2021.05"
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBIOSReleaseDate" = "05/25/2021"
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBoardVendor" = "Microsoft Corporation"
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBoardProduct" = "Surface Laptop 3 2020"
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBoardVersion" = "1.0"
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBoardSerial" = ([char[]](48..57+65..90)|sort{Get-Random}|select -First (Get-Random -Minimum 9 -Maximum 16)) -join ''
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBoardAssetTag" = ([char[]](48..57+65..90)|sort{Get-Random}|select -First (Get-Random -Minimum 9 -Maximum 16)) -join ''
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBoardBoardType" = "10"
+            "VBoxInternal/Devices/acpi/0/Config/AcpiOemId" = "MICROSOFT"
+        }
+    },
+    @{
+        "Name" = "HP Spectre x360"
+        "Settings" = @{
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemVendor" = (Get-Random -InputObject @("HP", "Hewlett-Packard", "HP Inc."))
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemProduct" = (Get-Random -InputObject @("Spectre x360", "Spectre x360 13", "Spectre x360 14"))
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemVersion" = (Get-Random -InputObject @("1.0", "2.0", "3.0"))
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemSerial" = ([char[]](48..57+65..90)|sort{Get-Random}|select -First (Get-Random -Minimum 9 -Maximum 16)) -join ''
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemSKU" = (Get-Random -InputObject @("SPECTREX360", "HP123", "MODEL789"))
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemFamily" = (Get-Random -InputObject @("Spectre", "Laptop", "Convertible"))
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemUuid" = (New-Guid).Guid
+            "VBoxInternal/Devices/acpi/0/Config/AcpiOemId" = "HP"
+        }
+    },
+    @{
+        "Name" = "Acer Swift 3"
+        "Settings" = @{
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemVendor" = "Acer Inc."
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemProduct" = (Get-Random -InputObject @("Swift 3 2020", "Swift 5 2021", "Swift 7 2022"))
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemVersion" = "3.0"
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemSerial" = ([char[]](48..57+65..90)|sort{Get-Random}|select -First (Get-Random -Minimum 9 -Maximum 16)) -join ''
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemSKU" = (Get-Random -InputObject @("SF32020", "SF52021", "SF72022"))
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemFamily" = (Get-Random -InputObject @("Swift", "Laptop", "Ultrabook"))
+            "VBoxInternal/Devices/pcbios/0/Config/DmiSystemUuid" = (New-Guid).Guid
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBIOSVendor" = "Insyde Corp."
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBIOSVersion" = "V2.0"
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBIOSReleaseDate" = "08/15/2020"
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBoardVendor" = "Acer Inc."
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBoardProduct" = "Swift 3 2020"
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBoardVersion" = "1.0"
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBoardSerial" = ([char[]](48..57+65..90)|sort{Get-Random}|select -First (Get-Random -Minimum 9 -Maximum 16)) -join ''
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBoardAssetTag" = ([char[]](48..57+65..90)|sort{Get-Random}|select -First (Get-Random -Minimum 9 -Maximum 16)) -join ''
+            "VBoxInternal/Devices/pcbios/0/Config/DmiBoardBoardType" = "10"
+            "VBoxInternal/Devices/acpi/0/Config/AcpiOemId" = "ACER"
+        }
+    }
+)
+
+# List available model options
+Write-Host "Select a model configuration:"
+$i = 1
+foreach ($model in $models) {
+    Write-Host ($i.ToString() + ": " + $($model["Name"]))
+
+    $i++
+}
+
+$choice = Read-Host "Enter the number of the model"
+$selectedModel = $($models[$choice - 1])
+
+$selectedModelName = $selectedModel["Name"]
+$selectedModelSettings = $selectedModel["Settings"]
+
+# Get the MAC address prefix for the selected model
+# Generate a random MAC address with the model-based prefix
+$macAddressPrefix = Get-RandomMacAddress $selectedModelName
+
+# List the available VMs and allow the user to select one.
+Write-Host "Select a VM to configure:"
+$vms = & $vboxman list vms | ForEach-Object { $_ -replace '^"(.*?)"\s*\{.*\}$','$1' }
+$i = 1
+foreach($vm in $vms) {
+    Write-Host ($i.ToString() + ": " + $vm)
+    $i++
+}
+$choice = Read-Host "Enter the number of the VM"
+$selectedVM = $vms[$choice - 1].Trim() 
+Write-Host "`nSelected VM was $($selectedVM):`n"
+
+
+# Display current settings and changes in a formatted table
+Write-Host "`nCurrent settings and changes for $($selectedModelName):`n"
+
+$table | Format-Table -AutoSize
+
+# Confirm applying the changes
+$confirm = Read-Host "Do you want to apply the changes? (Y/N)"
+if ($confirm -ne "Y" -and $confirm -ne "y") {
+    Write-Host "No changes were made."
+    exit
+}
+
+# Apply the new settings
+foreach ($setting in $selectedModelSettings.GetEnumerator()) {
+    $key = $setting.Key
+    $value = $setting.Value
+    & $vboxman setextradata $selectedVM $key $value
+
+    # check if the new value is saved
+    $newValue = & $vboxman getextradata $selectedVM $key
+    Write-Host "The new value of $key is $newValue"
+}
+
+
+# Define the AHCI settings
+$ahciSettings = @{
+    "VBoxInternal/Devices/ahci/0/Config/Port0/FirmwareRevision" = ([char[]](48..57+65..90)|sort{Get-Random}|select -First (Get-Random -Minimum 6 -Maximum 12)) -join ''
+    "VBoxInternal/Devices/ahci/0/Config/Port0/SerialNumber" = ([char[]](48..57+65..90)|sort{Get-Random}|select -First (Get-Random -Minimum 9 -Maximum 15)) -join ''
+    "VBoxInternal/Devices/ahci/0/Config/Port1/FirmwareRevision" =  ([char[]](48..57+65..90)|sort{Get-Random}|select -First (Get-Random -Minimum 3 -Maximum 6)) -join ''
+    "VBoxInternal/Devices/ahci/0/Config/Port1/SerialNumber" = ([char[]](48..57+65..90)|sort{Get-Random}|select -First (Get-Random -Minimum 9 -Maximum 15)) -join ''
+    "VBoxInternal/Devices/ahci/0/Config/Port1/ATAPIRevision" = ([char[]](48..57+65..90)|sort{Get-Random}|select -First (Get-Random -Minimum 3 -Maximum 6)) -join ''
+    "VBoxInternal/Devices/ahci/0/Config/Port1/ATAPIVendorId" = (Get-Random -InputObject @("LITEON", "Slimtype", "LITEON"))
+    "VBoxInternal/Devices/ahci/0/Config/Port1/ATAPIProductId" = (Get-Random -InputObject @("SOHD-16X9S", "SOHD-16X9S", "SOHD-16X9S"))
+    "VBoxInternal/Devices/ahci/0/Config/Port1/ModelNumber" = (Get-Random -InputObject @("Hitachi HTS543284", "LITEON SOHD-16X9S", "LITEON SOHD-16X9S"))
+    "VBoxInternal/Devices/ahci/0/Config/Port0/ModelNumber" = (Get-Random -InputObject @("Hitachi HTS543230AAA384", "WDC WD10EZEX-00BN5A0 ", "WDC WD10EZEX-00BN5A0 "))
+
+}
+
+# Configure the AHCI settings
+foreach ($setting in $ahciSettings.GetEnumerator()) {
+    $key = $setting.Key
+    $value = $setting.Value
+    & $vboxman setextradata $selectedVM $key $value
+}
+
+# Additional VM modifications
+
+& $vboxman modifyvm $selectedVM --macaddress1 (Get-Random -InputObject @("001422ABCDEF", "00219B123456", "0019DB789ABC", "002268DEF123", "001CBFA1B2C3", "60EB69D4E5F6", "00508B1F2E3D", "00030D4C5B6A"))
+& $vboxman modifyvm $selectedVM --vtxvpid on
+& $vboxman modifyvm $selectedVM --vtxux on
+& $vboxman modifyvm $selectedVM --apic on
+& $vboxman modifyvm $selectedVM --pae on
+& $vboxman modifyvm $selectedVM --longmode on
+& $vboxman modifyvm $selectedVM --hpet on
+& $vboxman modifyvm $selectedVM --nestedpaging on
+& $vboxman modifyvm $selectedVM --largepages on
+& $vboxman modifyvm $selectedVM --graphicscontroller vmsvga
+
+# Get VM Info
+$vmInfo = & $vboxman showvminfo $selectedVM
+
+Write-Host "\nWebcams available to the VM:"
+$webcamsInfo
+
+
+# Filter and display the VM Info
+$filteredInfo = $vmInfo | Where-Object { $_ -notmatch 'disabled|unused' }
+
+# Output the VM Info
+Write-Host "`nCurrent VM settings:"
+$filteredInfo
+
+# start the VM
+$confirm = Read-Host "Start the VM? (Y/N)"
+if ($confirm -ne "Y" -and $confirm -ne "y") {
+    & $vboxman startvm $selectedVM
+    exit
+}
+
+Write-Host "\nCurrent VM settings:"
+$vmInfo
+
+
+# start the VM
+
+$confirm = Read-Host "Do you want to run the VM (Y/N)"
+if ($confirm -ne "Y" -and $confirm -ne "y") {
+    
+    exit
+}
+& $vboxman startvm $selectedVM
+
+
+
+
