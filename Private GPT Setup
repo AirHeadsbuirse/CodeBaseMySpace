@@ -1,0 +1,5 @@
+git clone private-gpt
+cd private-gpt
+poetry install --extras "llms-llama-cpp ui vector-stores-qdrant embeddings-huggingface llms-openai-like"
+make run
+navigate to http://0.0.0.0:8001 
