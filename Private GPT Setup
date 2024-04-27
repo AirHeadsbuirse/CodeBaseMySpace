@@ -1,4 +1,4 @@
-git clone private-gpt
+git clone https://github.com/zylon-ai/private-gpt.git
 cd private-gpt
 poetry install --extras "llms-llama-cpp ui vector-stores-qdrant embeddings-huggingface llms-openai-like"
 make run
